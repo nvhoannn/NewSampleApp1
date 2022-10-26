@@ -17,7 +17,7 @@
         </ul>
         <ul class="d-flex navbar-nav">
           <% if logged_in? %>
-            <li class="nav-item"><%= link_to "Users", '#', class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Users", users_path, class: "nav-link" %></li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Account <b class="caret"></b>
@@ -25,7 +25,7 @@
 
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><%= link_to "Profile", current_user, class: "dropdown-item" %></li>
-                <li><%= link_to "Setting", '#', class: "dropdown-item" %></li>
+                <li><%= link_to "Setting", edit_user_path(current_user), class: "dropdown-item" %></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><%= link_to "Log out", logout_path, method: :delete, class: "dropdown-item" %></li>
               </ul>
