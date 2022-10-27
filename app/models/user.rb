@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  attr_accessor :remember_token
+  attr_accessor :remember_token, :activation_token
   
   paginates_per 15
 
@@ -12,7 +12,11 @@ class User < ApplicationRecord
     validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   
     before_save :downcase_email
-  
+    before_create :create_activation_digest
+
+    scope :active_users, -> {where(activated: true)}
+
+
     has_secure_password
   
     class << self
@@ -38,12 +42,19 @@ class User < ApplicationRecord
     end
 
     # Returns true if the given token matches the digest.
-    def authenticated?(remember_token)
-      BCrypt::Password.new(remember_digest).is_password?(remember_token)
+    def authenticated?(attribute, token)
+      digest = self.send("#{attribute}_digest")
+      return false if digest.nil?
+      BCrypt::Password.new(digest).is_password?(token)
     end
 
     private
     def downcase_email
       email.downcase!
+    end
+
+    def create_activation_digest
+      self.activation_token = User.new_token
+      self.activation_digest = User.digest(activation_token)
     end
   end
