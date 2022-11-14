@@ -1,0 +1,15 @@
+<%= form_for(@micropost) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+  
+    <div class="form-group">
+      <%= f.text_area :content, placeholder: "Compose new micropost...", class: "form-control" %>
+    </div>
+  
+    <div class="form-group w-100">
+      <%= f.submit "Post", class: "btn btn-primary w-100" %>
+    </div>
+
+    <div class="form-group mt-3">
+    <%= f.file_field :image, class: "form-control", accept: "image/*"  %>
+  </div>
+  <% end %>
