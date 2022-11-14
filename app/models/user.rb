@@ -14,6 +14,11 @@ class User < ApplicationRecord
     before_save :downcase_email
     before_create :create_activation_digest
 
+    has_many :microposts
+
+    has_many :microposts, dependent: :destroy
+
+
     scope :active_users, -> {where(activated: true)}
 
 
@@ -62,6 +67,10 @@ class User < ApplicationRecord
       reset_sent_at < 2.hours.ago
     end
 
+    def feed
+      microposts
+    end
+    
     private
     def downcase_email
       email.downcase!

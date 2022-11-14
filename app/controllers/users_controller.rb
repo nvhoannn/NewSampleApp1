@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
     def show
         @user = User.find_by(id: params[:id])
-
+        @microposts = @user.microposts.page params[:page]
         redirect_to static_pages_home_path unless @user
     end
 
@@ -60,14 +60,6 @@ class UsersController < ApplicationController
     end
     def correct_user
         redirect_to root_url unless current_user?(@user)
-      end
-    
-      def logged_in_user
-        unless logged_in?
-          store_location
-          flash[:danger] = "Please log in."
-          redirect_to login_url
-        end
       end
 
       def admin_user

@@ -34,6 +34,9 @@ gem 'dotenv-rails'
 gem 'net-smtp', require: false
 gem 'net-imap', require: false
 gem 'net-pop', require: false
+gem 'active_storage_validations'
+gem 'mini_magick'
+gem 'image_processing'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
