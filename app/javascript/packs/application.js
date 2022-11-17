@@ -17,6 +17,11 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
+global.$ = require('jquery')
+import jQuery from 'jquery'
+window.jQuery = jQuery
+window.$ = jQuery
+
 document.addEventListener("turbolinks:load", () => {
     // Both of these are from the Bootstrap 5 docs
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
